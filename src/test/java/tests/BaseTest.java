@@ -65,8 +65,7 @@ public class BaseTest {
 
     @Step("Регистрация нового пользователя")
     public void registrationUser(){
-        regPage.confirmCoockie()
-                .inputLogopass(t.email,t.password)
+        regPage.inputLogopass(t.email,t.password)
                 .confirmLogopass();
     }
 

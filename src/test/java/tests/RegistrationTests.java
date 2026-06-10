@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class RegistrationTests extends BaseTest{
 
     @Test
-    @DisplayName("Проверка отображения имени пользователя")
+    @DisplayName("Проверка отображения измененного имени пользователя")
     public void registrationNewUser(){
         registrationUser();
         newUsername(t.username);
