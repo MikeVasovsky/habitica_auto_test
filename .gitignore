@@ -2,8 +2,6 @@
 .gradle/
 build/
 
-# Local config (keep local.properties.example in repo if you add one)
-src/test/resources/local.properties
 
 # IntelliJ IDEA
 .idea/
