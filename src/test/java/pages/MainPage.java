@@ -23,14 +23,18 @@ public class MainPage {
     private SelenideElement tagFld = $("[class='multi-list d-flex flex-wrap']");
     private SelenideElement countFld = $x("(//*[@class='btn dropdown-toggle btn-secondary'])[3]");
     private SelenideElement taskList = $("[class='tasks-column col-lg-3 col-md-6 habit']");
-
     private SelenideElement diffTittle=$x("//label[contains(text(), 'Сложность')]");
     private SelenideElement createBtn=$x("//button[contains(text(), 'Создать')]");
 
 
-    @Step("Проверить отображение имени, указанного после регистрации")
+    @Step("Проверить отображение имени на главной страниц")
     public void checkNameOfMember(String name) {
         memberStats.find(".member-stats h3 span").shouldHave(text(name));
+    }
+
+    @Step("Проверить отображение почты на главной страниц")
+    public void checkEmailOfMember(String name) {
+        memberStats.find(".member-stats [class='small-text character-level'] span").shouldHave(text(name));
     }
 
     @Step("Пропустить экраны приветствия и настройки персонажа")
