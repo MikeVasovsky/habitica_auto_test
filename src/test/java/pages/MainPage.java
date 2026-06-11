@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import pages.container.MainTittle;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -10,6 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MainPage {
+    MainTittle mainTittle = new MainTittle();
     private SelenideElement nextFooter = $(".next");
     private SelenideElement closeFooter = $("[class='next-outer disabled']");
     private SelenideElement memberStats = $(".member-stats");
@@ -92,7 +94,12 @@ public class MainPage {
         diffFld.shouldHave(text(diff));
         tagFld.shouldHave(text(tag));
         countFld.shouldHave(text(count));
+    }
 
+    @Step("Перейти на страницу поиска испытаний")
+    public ChallengePage goToFindChallenge(){
+        mainTittle.goToSearchChallenge();
+        return new ChallengePage();
     }
 
 

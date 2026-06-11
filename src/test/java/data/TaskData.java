@@ -46,6 +46,5 @@ public class TaskData {
         offCount.add("ежедневное дело");
         offCount.add("еженедельно");
         offCount.add("ежемесячно");
-
     }
 }

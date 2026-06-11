@@ -57,7 +57,6 @@ public class BaseTest {
         step("Закрыть браузер", Selenide::closeWebDriver);
     }
 
-
     @Step("Открыть страницу")
     void openPage() {
         open("");
