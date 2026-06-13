@@ -14,7 +14,7 @@ public interface TestConfig extends Config {
     String getBrowser();
 
     @Key("browser.version")
-    @DefaultValue("")
+    @DefaultValue("130")
     String getBrowserVersion();
 
     @Key("browser.size")
