@@ -4,6 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import pages.container.MainTittle;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -18,6 +20,7 @@ public class MainPage {
     private SelenideElement letsGetStartBtn = $x("//a[contains(text(),'Начнем!')]");
     private SelenideElement addTaskBtn = $("#create-task-btn");
     private SelenideElement addHabitBtn = $x("//div[contains(text(),'привычку')]");
+    private SelenideElement addCaseBtn = $x("//div[contains(text(),'ежедневное дело')]");
     private SelenideElement addTittle = $("[placeholder='Добавить название']");
     private SelenideElement addNote = $("[placeholder='Добавить заметку']");
     private SelenideElement modal = $("#task-modal___BV_modal_body_");
@@ -25,6 +28,7 @@ public class MainPage {
     private SelenideElement tagFld = $("[class='multi-list d-flex flex-wrap']");
     private SelenideElement countFld = $x("(//*[@class='btn dropdown-toggle btn-secondary'])[3]");
     private SelenideElement taskList = $("[class='tasks-column col-lg-3 col-md-6 habit']");
+    private SelenideElement caseList = $("[class='tasks-column col-lg-3 col-md-6 daily']");
     private SelenideElement diffTittle=$x("//label[contains(text(), 'Сложность')]");
     private SelenideElement createBtn=$x("//button[contains(text(), 'Создать')]");
 
@@ -43,9 +47,8 @@ public class MainPage {
     public MainPage skipGreetings() {
         nextFooter.click();
         closeFooter.click();
-        letsGetStartBtn.shouldBe(visible);
-        if (letsGetStartBtn.isDisplayed()){
-        letsGetStartBtn.click();
+        if (letsGetStartBtn.is(visible, Duration.ofSeconds(10))) {
+            letsGetStartBtn.click();
         }
         return this;
     }
@@ -55,6 +58,13 @@ public class MainPage {
         addTaskBtn.click();
         addHabitBtn.click();
         return this;
+    }
+
+    @Step("Перейти к созданию ежедневного дела")
+    public CasePage goToCreateCase(){
+        addTaskBtn.click();
+        addCaseBtn.click();
+        return new CasePage();
     }
 
     @Step("Создать привычку")
@@ -102,5 +112,9 @@ public class MainPage {
         return new ChallengePage();
     }
 
+    @Step("Проверить наличие созданного ежедневного дела")
+    public void checkCreateCase(String name){
+        caseList.find(byText(name)).shouldBe(visible);
+    }
 
 }

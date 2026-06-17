@@ -10,7 +10,7 @@ public class LoginTest extends BaseTest{
     @Test
     @DisplayName("Проверка логина зарегистрированного пользователя")
     void correctLoginTest(){
-        regPage.goToLoginPage()
+        authSteps.openLoginPage()
                 .enterLogopass(EMAIL, PWD)
                 .checkEmailOfMember(DOMAIN);
     }
@@ -18,14 +18,14 @@ public class LoginTest extends BaseTest{
     @Test
     @DisplayName("Проверка логина по незарегистрированному логопассу")
     void wrongLogopassLoginTest(){
-        regPage.goToLoginPage()
+        authSteps.openLoginPage()
                 .enterNotRegisterLogopass(t.email,t.password);
     }
 
     @Test
     @DisplayName("Проверка логина с некорректным паролем")
     void wrongPasswordLoginTest(){
-        regPage.goToLoginPage()
+        authSteps.openLoginPage()
                 .enterWrongPwd(t.wrongPassword);
     }
 }

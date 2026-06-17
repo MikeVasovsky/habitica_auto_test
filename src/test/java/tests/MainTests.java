@@ -31,12 +31,7 @@ public class MainTests extends BaseTest {
     @Test
     @DisplayName("Проверка отображения имени пользователя")
     public void registrationNewUser() {
-        regPage.confirmCoockie()
-                .inputLogopass(t.email, t.password)
-                .confirmLogopass()
-                .inputName(t.username)
-                .confirmUsername()
-                .skipGreetings()
+        authSteps.registrationWithUsername(t.username)
                 .checkNameOfMember(t.username);
     }
 
@@ -44,9 +39,9 @@ public class MainTests extends BaseTest {
     @DisplayName("Проверка добавления привычки")
     @MethodSource("getTaskElementst")
     void addHabitTest(String tittle, String note, String difficult, String tag, String offCount) {
-        registrationUser();
-        newUsername(t.username);
-        mainPage.skipGreetings()
+        authSteps.registrationUser();
+        actions.newUsername(t.username);
+        actions.mainPage.skipGreetings()
                 .goToCreateHabit()
                 .addTittleAbdNote(tittle, note)
                 .createHabit(difficult, tag, offCount)

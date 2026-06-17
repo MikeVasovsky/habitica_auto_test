@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ChallengePage {
     private SelenideElement searchFld = $("[placeholder='Поиск']");
-    private SelenideElement habiticaOfficialTextBox = $("[for=\"habitica_official\"]");
+    private SelenideElement habiticaOfficialTextBox = $("[for='habitica_official']");
     private SelenideElement createChallengeBtn = $x("//span[contains(text(),'Создать испытание')]");
     private SelenideElement challengeData = $(".sticky");
     private SelenideElement joinChakkengeBtn = $("[class='btn btn-success']");
