@@ -1,21 +1,19 @@
 package tests;
 
 import allure.Attach;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import config.ConfigReader;
 import config.TestConfig;
+import config.WebConfig;
 import data.TestData;
 import io.qameta.allure.selenide.AllureSelenide;
 
-import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 
-import static config.Remote.REMOTE;
 import static io.qameta.allure.Allure.step;
 
 public class BaseTest {
@@ -23,19 +21,12 @@ public class BaseTest {
     AppSteps actions = new AppSteps();
     AuthSteps authSteps = new AuthSteps(t);
 
+    private static final TestConfig config = ConfigReader.Instance.read();
 
     @BeforeAll
     static void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        TestConfig testConfig = ConfigFactory.create(TestConfig.class, System.getProperties());
-        Configuration.browser = testConfig.getBrowser().toLowerCase();
-        Configuration.browserVersion = testConfig.getBrowserVersion();
-        Configuration.browserSize = testConfig.getBrowserSize();
-        Configuration.baseUrl = testConfig.gerUrl();
-        Configuration.pageLoadStrategy = testConfig.getLoadStrategy();
-        Configuration.browserCapabilities = options;
-        if (testConfig.getEnv() == REMOTE)
-            Configuration.remote=testConfig.getRemoteUrl();
+        WebConfig webConfig = new WebConfig(config);
+        webConfig.testConfig();
     }
 
     @BeforeEach()

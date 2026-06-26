@@ -2,8 +2,7 @@ package config;
 
 import org.aeonbits.owner.Config;
 
-@Config.Sources({"classpath:local.properties",
-        "classpath:local.properties",
+@Config.Sources({"classpath:${env}.properties",
         "system:properties"})
 
 public interface TestConfig extends Config {
@@ -17,7 +16,7 @@ public interface TestConfig extends Config {
 
     @Key("browser.name")
     @DefaultValue("CHROME")
-    String getBrowser();
+    Browser getBrowser();
 
     @Key("browser.version")
     @DefaultValue("130")
