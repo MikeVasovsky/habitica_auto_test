@@ -15,11 +15,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 
+import static config.Remote.REMOTE;
 import static io.qameta.allure.Allure.step;
 
 public class BaseTest {
     TestData t = new TestData();
-    AppSteps  actions = new AppSteps();
+    AppSteps actions = new AppSteps();
     AuthSteps authSteps = new AuthSteps(t);
 
 
@@ -33,7 +34,8 @@ public class BaseTest {
         Configuration.baseUrl = testConfig.gerUrl();
         Configuration.pageLoadStrategy = testConfig.getLoadStrategy();
         Configuration.browserCapabilities = options;
-
+        if (testConfig.getEnv() == REMOTE)
+            Configuration.remote=testConfig.getRemoteUrl();
     }
 
     @BeforeEach()

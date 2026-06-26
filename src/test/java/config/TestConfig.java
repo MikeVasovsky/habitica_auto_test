@@ -1,13 +1,19 @@
 package config;
 
 import org.aeonbits.owner.Config;
-@Config.Sources({"classpath:local.properties"})
+
+@Config.Sources({"classpath:local.properties",
+        "classpath:local.properties",
+        "system:properties"})
 
 public interface TestConfig extends Config {
 
     @Key("url.baseUrl")
     @DefaultValue("")
     String gerUrl();
+
+    @Key("remoteUrl")
+    String getRemoteUrl();
 
     @Key("browser.name")
     @DefaultValue("CHROME")
@@ -24,5 +30,9 @@ public interface TestConfig extends Config {
     @Key("pageLoadStrategy")
     @DefaultValue("eager")
     String getLoadStrategy();
+
+    @Key("env")
+    @DefaultValue("LOCAL")
+    Remote getEnv();
 
 }
