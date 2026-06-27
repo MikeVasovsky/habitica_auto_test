@@ -4,7 +4,7 @@ import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-import static config.Remote.REMOTE;
+import static com.codeborne.selenide.Configuration.remote;
 
 public class WebConfig {
     private final TestConfig testConfig;
@@ -19,8 +19,8 @@ public class WebConfig {
         Configuration.browserVersion = testConfig.getBrowserVersion();
         Configuration.browserSize = testConfig.getBrowserSize();
         Configuration.pageLoadStrategy = testConfig.getLoadStrategy();
-        if (testConfig.getEnv() == REMOTE) {
-            Configuration.remote = testConfig.getRemoteUrl();
+        if (testConfig.getEnv()==Remote.remote) {
+            remote = testConfig.getRemoteUrl();
         }
         Configuration.browserCapabilities =
                 switch (testConfig.getBrowser()) {

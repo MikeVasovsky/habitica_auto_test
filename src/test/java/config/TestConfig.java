@@ -31,7 +31,7 @@ public interface TestConfig extends Config {
     String getLoadStrategy();
 
     @Key("env")
-    @DefaultValue("LOCAL")
+    @DefaultValue("local")
     Remote getEnv();
 
 }

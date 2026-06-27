@@ -8,9 +8,7 @@ public enum ConfigReader {
     public static final TestConfig testConfig = createTestConfig();
 
     private static TestConfig createTestConfig() {
-        if (!System.getProperties().containsKey("env")) {
-            System.setProperty("env", "LOCAL");
-        }
+        System.setProperty("env", System.getProperty("env", "local").toLowerCase());
         return ConfigFactory.create(TestConfig.class, System.getProperties());
     }
 
