@@ -20,7 +20,14 @@ public class ChallengeTest extends BaseTest {
         authSteps.registrationAndLogin();
         actions.mainPage
                 .goToFindChallenge()
-                .createChallenge(challenge);
+                .createChallenge()
+                .setChallenge(challenge)
+                .setResume(challenge)
+                .setDeskription(challenge)
+                .selectGroup(challenge)
+                .selectCategory(challenge)
+                .inputNumber(challenge)
+                .saveChallenge();
     }
 
     @Test
