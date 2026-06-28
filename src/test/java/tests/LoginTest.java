@@ -20,6 +20,7 @@ public class LoginTest extends BaseTest{
     void wrongLogopassLoginTest(){
         authSteps.openLoginPage()
                 .enterNotRegisterLogopass(t.email,t.password);
+        loginPage.checkIncorrectLogopassMessage();
     }
 
     @Test
@@ -27,5 +28,6 @@ public class LoginTest extends BaseTest{
     void wrongPasswordLoginTest(){
         authSteps.openLoginPage()
                 .enterWrongPwd(t.wrongPassword);
+        loginPage.checkILogopassMessageIfNotEnterLogin();
     }
 }

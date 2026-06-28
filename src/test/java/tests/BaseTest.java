@@ -12,6 +12,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import pages.LoginPage;
 
 
 import static io.qameta.allure.Allure.step;
@@ -20,6 +21,7 @@ public class BaseTest {
     TestData t = new TestData();
     AppSteps actions = new AppSteps();
     AuthSteps authSteps = new AuthSteps(t);
+    LoginPage loginPage = new LoginPage();
 
     private static final TestConfig config = ConfigReader.Instance.read();
 

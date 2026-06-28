@@ -29,14 +29,21 @@ public class LoginPage {
         usernameFld.setValue(email);
         passwordFld.setValue(password);
         enterBtn.click();
+    }
+
+    @Step("Проверить сообщение о неверном логине или пароле")
+    public void checkIncorrectLogopassMessage(){
         wrongLogopassMessage.shouldBe(visible);
     }
 
     @Step("Ввести некорректный пароль и проверить текст ошибки")
     public void enterWrongPwd(String pwd){
         passwordFld.setValue(pwd);
-        pwdMessage.shouldHave(text("Ваш пароль должен содержать как минимум 8 символов."));
     }
 
+    @Step("Проверить отображение сообщения об отсутствии логина или пароля")
+    public void checkILogopassMessageIfNotEnterLogin(){
+        pwdMessage.shouldHave(text("Ваш пароль должен содержать как минимум 8 символов."));
+    }
 
 }
