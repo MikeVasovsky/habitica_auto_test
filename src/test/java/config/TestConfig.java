@@ -34,4 +34,8 @@ public interface TestConfig extends Config {
     @DefaultValue("local")
     Remote getEnv();
 
+    @Key("browser.language")
+    @DefaultValue("ru-RU")
+    String getBrowserLanguage();
+
 }

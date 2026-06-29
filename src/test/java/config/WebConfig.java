@@ -4,6 +4,9 @@ import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.codeborne.selenide.Configuration.remote;
 
 public class WebConfig {
@@ -24,9 +27,19 @@ public class WebConfig {
         }
         Configuration.browserCapabilities =
                 switch (testConfig.getBrowser()) {
-                    case CHROME -> new ChromeOptions();
+                    case CHROME -> chromeOptionsWithLanguage();
                     case FIREFOX -> new FirefoxOptions();
                 };
         System.setProperty("jdk.tls.maxCertificateChainLength", "50");
+    }
+
+    private ChromeOptions chromeOptionsWithLanguage() {
+        ChromeOptions options = new ChromeOptions();
+        String language = testConfig.getBrowserLanguage();
+        options.addArguments("--lang=" + language.split("-")[0]);
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("intl.accept_languages", language);
+        options.setExperimentalOption("prefs", prefs);
+        return options;
     }
 }
