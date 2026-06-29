@@ -10,7 +10,7 @@ public class RegistrationTests extends BaseTest {
     public void registrationNewUser() {
         authSteps.registrationUser();
         actions.newUsername(t.username);
-        actions.mainPage.skipGreetings()
+        actions.getMainPage().skipGreetings()
                 .checkNameOfMember(t.username);
     }
 }

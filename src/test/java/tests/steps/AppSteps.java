@@ -1,8 +1,9 @@
-package tests;
+package tests.steps;
 
 import data.CreateCaseData;
 import data.CreateChallengeData;
 import io.qameta.allure.Step;
+import lombok.Data;
 import model.CreateCaseModel;
 import model.CreateChallengeModel;
 import pages.ChallengePage;
@@ -12,6 +13,7 @@ import pages.UsernamePage;
 import static com.codeborne.selenide.Selenide.open;
 import static data.CreateChallengeData.ADD_GROUP;
 
+@Data
 public class AppSteps {
     CreateCaseData createCaseData = new CreateCaseData();
     CreateChallengeData createChallengeData = new CreateChallengeData();
@@ -20,7 +22,7 @@ public class AppSteps {
     ChallengePage challengePage = new ChallengePage();
 
     @Step("Открыть страницу")
-    void openPage() {
+    public void openPage() {
         open("");
     }
 
@@ -31,7 +33,7 @@ public class AppSteps {
     }
 
     @Step("Создание данных испытания")
-    CreateCaseModel createEveryDayCaseData() {
+    public CreateCaseModel createEveryDayCaseData() {
         return new CreateCaseModel(
                 createCaseData.getTittle(),
                 createCaseData.getNote(),

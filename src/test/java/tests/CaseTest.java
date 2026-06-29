@@ -11,7 +11,7 @@ public class CaseTest extends BaseTest{
     void addEverydayCase(){
         CreateCaseModel model = actions.createEveryDayCaseData();
         authSteps.preSaveUserLogin();
-        actions.mainPage.goToCreateCase()
+        actions.getMainPage().goToCreateCase()
                 .createCase(model)
                 .checkCreateCase(model.getTittle());
     }

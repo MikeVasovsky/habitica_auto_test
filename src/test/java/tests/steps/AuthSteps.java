@@ -1,9 +1,10 @@
-package tests;
+package tests.steps;
 
 
 import data.TestData;
 import io.qameta.allure.Step;
 
+import lombok.Data;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.RegistrationPage;
@@ -11,8 +12,9 @@ import pages.RegistrationPage;
 import static data.TestData.EMAIL;
 import static data.TestData.PWD;
 
+@Data
 public class AuthSteps {
-    private RegistrationPage regPage = new RegistrationPage();
+    RegistrationPage regPage = new RegistrationPage();
     TestData t;
 
     public AuthSteps(TestData t) {

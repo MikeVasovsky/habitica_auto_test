@@ -18,7 +18,7 @@ public class ChallengeTest extends BaseTest {
     void searchNewChallenge() {
         CreateChallengeModel challenge = actions.createChallengeData();
         authSteps.registrationAndLogin();
-        actions.mainPage
+        actions.getMainPage()
                 .goToFindChallenge()
                 .createChallenge()
                 .setChallenge(challenge)
@@ -34,13 +34,13 @@ public class ChallengeTest extends BaseTest {
     @DisplayName("Добавить себе испытание")
     void joinToChallenge() {
         authSteps.registrationAndLogin();
-        actions.mainPage
+        actions.getMainPage()
                 .goToFindChallenge()
                 .searchChallenge(OFFICIAL_CHL)
                 .openChallenge(OFFICIAL_CHL)
                 .searchMyChallenge();
         step("Проверить наличие  добавленного испытания во вкладке 'Мои испытания'", () ->
-                actions.challengePage.checkVisibleChallenge(OFFICIAL_CHL));
+                actions.getChallengePage().checkVisibleChallenge(OFFICIAL_CHL));
     }
 
 }

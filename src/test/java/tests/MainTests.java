@@ -41,7 +41,7 @@ public class MainTests extends BaseTest {
     void addHabitTest(String tittle, String note, String difficult, String tag, String offCount) {
         authSteps.registrationUser();
         actions.newUsername(t.username);
-        actions.mainPage.skipGreetings()
+        actions.getMainPage().skipGreetings()
                 .goToCreateHabit()
                 .addTittleAbdNote(tittle, note)
                 .createHabit(difficult, tag, offCount)
