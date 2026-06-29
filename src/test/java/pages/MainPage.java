@@ -45,8 +45,8 @@ public class MainPage {
 
     @Step("Пропустить экраны приветствия и настройки персонажа")
     public MainPage skipGreetings() {
-        nextFooter.click();
-        closeFooter.click();
+        nextFooter.scrollTo().click();
+        closeFooter.scrollTo().click();
         if (letsGetStartBtn.is(visible, Duration.ofSeconds(10))) {
             letsGetStartBtn.click();
         }
@@ -111,10 +111,4 @@ public class MainPage {
         mainTittle.goToSearchChallenge();
         return new ChallengePage();
     }
-
-    @Step("Проверить наличие созданного ежедневного дела")
-    public void checkCreateCase(String name){
-        caseList.find(byText(name)).shouldBe(visible);
-    }
-
 }
