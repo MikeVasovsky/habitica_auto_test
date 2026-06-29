@@ -35,7 +35,9 @@ public class MainPage {
 
     @Step("Проверить отображение имени на главной страниц")
     public void checkNameOfMember(String name) {
-        memberStats.find(".member-stats h3 span").shouldHave(text(name));
+        memberStats.find(".member-stats h3 span")
+                .scrollTo()
+                .shouldHave(text(name));
     }
 
     @Step("Проверить отображение почты на главной страниц")
@@ -111,4 +113,10 @@ public class MainPage {
         mainTittle.goToSearchChallenge();
         return new ChallengePage();
     }
+
+    @Step("Проверить наличие созданного ежедневного дела")
+    public void checkCreateCase(String name){
+        caseList.find(byText(name)).shouldBe(visible);
+    }
+
 }
