@@ -41,8 +41,7 @@ public class MainTests extends BaseTest {
     @DisplayName("Проверка добавления привычки")
     @MethodSource("getTaskElementst")
     void addHabitTest(String tittle, String note, String difficult, String tag, String offCount) {
-        authSteps.registrationUser();
-        actions.newUsername(t.username);
+        authSteps.registrationAndLogin();
         actions.getMainPage().skipGreetings()
                 .goToCreateHabit()
                 .addTittleAbdNote(tittle, note)
