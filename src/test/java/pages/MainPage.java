@@ -28,7 +28,7 @@ public class MainPage {
     private SelenideElement tagFld = $("[class='multi-list d-flex flex-wrap']");
     private SelenideElement countFld = $x("(//*[@class='btn dropdown-toggle btn-secondary'])[3]");
     private SelenideElement taskList = $("[class='tasks-column col-lg-3 col-md-6 habit']");
-    private SelenideElement caseList = $("[class='tasks-column col-lg-3 col-md-6 daily']");
+    private SelenideElement caseList = $("[class=['tasks-column col-lg-3 col-md-6 daily']");
     private SelenideElement diffTittle=$x("//label[contains(text(), 'Сложность')]");
     private SelenideElement createBtn=$x("//button[contains(text(), 'Создать')]");
 
@@ -47,9 +47,13 @@ public class MainPage {
 
     @Step("Пропустить экраны приветствия и настройки персонажа")
     public MainPage skipGreetings() {
-        nextFooter.scrollIntoView(true).click();
-        closeFooter.scrollIntoView(true).click();
-        if (letsGetStartBtn.is(visible, Duration.ofSeconds(10))) {
+        if (nextFooter.is(visible, Duration.ofSeconds(10))){
+            nextFooter.scrollIntoView(true).click();
+        }
+
+        if (closeFooter.is(visible, Duration.ofSeconds(10))){
+            closeFooter.scrollIntoView(true).click();
+        }        if (letsGetStartBtn.is(visible, Duration.ofSeconds(10))) {
             letsGetStartBtn.click();
         }
         return this;
