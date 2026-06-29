@@ -47,8 +47,8 @@ public class MainPage {
 
     @Step("Пропустить экраны приветствия и настройки персонажа")
     public MainPage skipGreetings() {
-        nextFooter.scrollTo().click();
-        closeFooter.scrollTo().click();
+        nextFooter.scrollIntoView(true).click();
+        closeFooter.scrollIntoView(true).click();
         if (letsGetStartBtn.is(visible, Duration.ofSeconds(10))) {
             letsGetStartBtn.click();
         }
