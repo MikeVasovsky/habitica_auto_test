@@ -3,11 +3,12 @@ package tests;
 import model.CreateChallengeModel;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static data.CreateChallengeData.OFFICIAL_CHL;
-
+@Tag("challenge_test")
 public class ChallengeTest extends BaseTest {
 
 
