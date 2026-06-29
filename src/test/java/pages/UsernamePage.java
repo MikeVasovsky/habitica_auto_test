@@ -19,6 +19,7 @@ public class UsernamePage {
 
     @Step("Ввести имя пользователя")
     public UsernamePage inputName(String name){
+        usernameInputFld.clear();
         usernameInputFld.setValue(name);
         return this;
     }
