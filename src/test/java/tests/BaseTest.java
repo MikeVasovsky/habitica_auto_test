@@ -16,7 +16,6 @@ import pages.LoginPage;
 import tests.steps.AppSteps;
 import tests.steps.AuthSteps;
 
-
 import static io.qameta.allure.Allure.step;
 
 public class BaseTest {
