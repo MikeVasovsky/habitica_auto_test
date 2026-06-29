@@ -41,9 +41,16 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.withType(Test) {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        if (project.hasProperty('includeTags')) {
+            includeTags project.property('includeTags').split(',')
+        }
+        if (project.hasProperty('excludeTags')) {
+            excludeTags project.property('excludeTags').split(',')
+        }
+    }
     systemProperties(System.getProperties())
-    testLogging() {
+    testLogging {
         lifecycle {
             events "started", "skipped", "failed", "STANDARD_ERROR", "STANDARD_OUT"
             exceptionFormat "short"
