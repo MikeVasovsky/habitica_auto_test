@@ -42,7 +42,7 @@ public class MainTests extends BaseTest {
     @MethodSource("getTaskElementst")
     void addHabitTest(String tittle, String note, String difficult, String tag, String offCount) {
         authSteps.registrationAndLogin();
-        actions.getMainPage().skipGreetings()
+        actions.getMainPage()
                 .goToCreateHabit()
                 .addTittleAbdNote(tittle, note)
                 .createHabit(difficult, tag, offCount)
