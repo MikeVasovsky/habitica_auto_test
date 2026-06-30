@@ -49,10 +49,7 @@ public class MainPage {
 
     @Step("Пропустить экраны приветствия и настройки персонажа")
     public MainPage skipGreetings() {
-        for (int i = 0; i < 10; i++) {
-            if (!nextFooter.is(visible, Duration.ofSeconds(3))) {
-                break;
-            }
+        if (nextFooter.is(visible, Duration.ofSeconds(10))){
             nextFooter.scrollIntoView(true).click();
         }
         if (closeFooter.is(visible, Duration.ofSeconds(10))){
