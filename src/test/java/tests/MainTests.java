@@ -45,7 +45,10 @@ public class MainTests extends BaseTest {
         actions.getMainPage()
                 .goToCreateHabit()
                 .addTittleAbdNote(tittle, note)
-                .createHabit(difficult, tag, offCount)
+                .addDifficult(difficult)
+                .addTag(tag)
+                .addCount(offCount)
+                .createHabit()
                 .openCreateHabit(tittle)
                 .checkCreateHabit(difficult, tag, offCount);
     }

@@ -6,6 +6,7 @@ import pages.container.MainTittle;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -23,10 +24,11 @@ public class MainPage {
     private SelenideElement addCaseBtn = $x("//div[contains(text(),'ежедневное дело')]");
     private SelenideElement addTittle = $("[placeholder='Добавить название']");
     private SelenideElement addNote = $("[placeholder='Добавить заметку']");
-    private SelenideElement modal = $("#task-modal___BV_modal_body_");
+    private SelenideElement modal = $("#task-modal___BV_modal_content_");
     private SelenideElement diffFld = $("[class='difficulty-item isButton']");
     private SelenideElement tagFld = $("[class='multi-list d-flex flex-wrap']");
-    private SelenideElement countFld = $x("(//*[@class='btn dropdown-toggle btn-secondary'])[3]");
+    private SelenideElement countFld = $("[class='array-select']");
+    private SelenideElement dropdownMenu = $("[class='dropdown-menu show']");
     private SelenideElement taskList = $("[class='tasks-column col-lg-3 col-md-6 habit']");
     private SelenideElement caseList = $("[class=['tasks-column col-lg-3 col-md-6 daily']");
     private SelenideElement diffTittle=$x("//label[contains(text(), 'Сложность')]");
@@ -47,13 +49,16 @@ public class MainPage {
 
     @Step("Пропустить экраны приветствия и настройки персонажа")
     public MainPage skipGreetings() {
-        if (nextFooter.is(visible, Duration.ofSeconds(10))){
+        for (int i = 0; i < 10; i++) {
+            if (!nextFooter.is(visible, Duration.ofSeconds(3))) {
+                break;
+            }
             nextFooter.scrollIntoView(true).click();
         }
-
         if (closeFooter.is(visible, Duration.ofSeconds(10))){
             closeFooter.scrollIntoView(true).click();
-        }        if (letsGetStartBtn.is(visible, Duration.ofSeconds(10))) {
+        }
+        if (letsGetStartBtn.is(visible, Duration.ofSeconds(10))) {
             letsGetStartBtn.click();
         }
         return this;
@@ -74,17 +79,34 @@ public class MainPage {
     }
 
     @Step("Создать привычку")
-    public MainPage createHabit(String diff,
-                                String tag,
-                                String count){
-        diffFld.click();
-        modal.find(byText(diff)).click();
-        tagFld.click();
-        modal.find(byText(tag)).click();
-        diffTittle.click();
-        countFld.click();
-        modal.find(byText(count)).click();
+    public MainPage createHabit(){
         createBtn.click();
+        return this;
+    }
+
+    @Step("Выбрать сложность")
+    public MainPage addDifficult(String diff){
+        diffTittle.click();
+        SelenideElement difficultyToggle = modal.$("[class='difficulty-select'] button.dropdown-toggle");
+        if (!difficultyToggle.$(".label").is(text(diff))) {
+            difficultyToggle.scrollIntoView(true).click(usingJavaScript());
+            dropdownMenu.shouldBe(visible, Duration.ofSeconds(10)).find(byText(diff)).click();
+        }
+        return this;
+    }
+
+    @Step("Выбрать тэг")
+    public MainPage addTag(String tag){
+        tagFld.click();
+        dropdownMenu.find(byText(tag)).click();
+        diffTittle.click();
+        return this;
+    }
+
+    @Step("Выбрать счетчик")
+    public MainPage addCount(String count){
+        modal.$("[class='array-select']").click();
+        dropdownMenu.find(byText(count)).click();
         return this;
     }
 
@@ -117,10 +139,4 @@ public class MainPage {
         mainTittle.goToSearchChallenge();
         return new ChallengePage();
     }
-
-    @Step("Проверить наличие созданного ежедневного дела")
-    public void checkCreateCase(String name){
-        caseList.find(byText(name)).shouldBe(visible);
-    }
-
 }
