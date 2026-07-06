@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import static data.TestData.*;
 
-@Tag("login_test")
+@Tag(TestTags.HABITICA)
+@Tag(TestTags.LOGIN)
 public class LoginTest extends BaseTest{
 
     @Test

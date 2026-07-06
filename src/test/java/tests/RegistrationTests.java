@@ -4,7 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag("registrationTest")
+@Tag(TestTags.HABITICA)
+@Tag(TestTags.REGISTRATION)
 public class RegistrationTests extends BaseTest {
 
     @Test

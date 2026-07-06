@@ -12,7 +12,8 @@ import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Tag("main_test")
+@Tag(TestTags.HABITICA)
+@Tag(TestTags.MAIN)
 public class MainTests extends BaseTest {
 
     private static Stream<Arguments> getTaskElementst() {

@@ -37,7 +37,7 @@ public class AuthSteps {
                 .confirmLogopass();
     }
 
-    @Step("Авторизация предустановленногот пользователя")
+    @Step("Авторизация предустановленного пользователя")
     public void preSaveUserLogin() {
         regPage.goToLoginPage()
                 .enterLogopass(EMAIL, PWD);

@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static data.CreateChallengeData.OFFICIAL_CHL;
-@Tag("challenge_test")
+@Tag(TestTags.HABITICA)
+@Tag(TestTags.CHALLENGE)
 public class ChallengeTest extends BaseTest {
 
 
