@@ -1,6 +1,23 @@
 # Habitica UI Tests
 
-Автотесты веб-приложения [Habitica](https://habitica.com/).
+<p align="center">
+  <a href="https://habitica.com/">
+    <img src="https://static.cdnlogo.com/logos/h/76/habitica_800.png" alt="Habitica" width="280"/>
+  </a>
+</p>
+
+<p align="center">
+  Автотесты веб-приложения <a href="https://habitica.com/">Habitica</a>
+</p>
+
+## Содержание
+
+- [Технологии](#технологии)
+- [Библиотеки](#библиотеки)
+- [Варианты запуска](#варианты-запуска)
+- [Запуск](#запуск)
+- [Jenkins](#jenkins)
+- [Allure Report](#allure-report)
 
 ## Технологии
 
@@ -9,7 +26,7 @@
 [![Selenide](https://img.shields.io/badge/Selenide-43B02A?style=flat)](https://selenide.org/)
 [![Selenoid](https://img.shields.io/badge/Selenoid-00B4D8?style=flat)](https://aerokube.com/selenoid/)
 [![Habitica](https://img.shields.io/badge/Habitica-432874?style=flat)](https://habitica.com/)
-[![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white)](https://www.jenkins.io/)
+[![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white)](https://jenkins.autotests.cloud/view/java_students/job/ikrylov_item/)
 
 ## Библиотеки
 
@@ -19,6 +36,24 @@
 [![Owner](https://img.shields.io/badge/Owner-5C6BC0?style=flat)](https://owner.aeonbits.org/)
 [![Lombok](https://img.shields.io/badge/Lombok-1A1A1A?style=flat&logo=lombok&logoColor=white)](https://projectlombok.org/)
 [![JavaFaker](https://img.shields.io/badge/JavaFaker-00897B?style=flat)](https://github.com/DiUS/java-faker)
+
+## Варианты запуска
+
+```mermaid
+flowchart TD
+    A[Запуск тестов] --> B{Где выполняется браузер?}
+
+    B -->|Локально| C["Локальный запуск<br/>./gradlew test"]
+    C --> C1["env = local<br/>Chrome на машине разработчика"]
+
+    B -->|Удалённо через Selenoid| D{Где запускается Gradle?}
+
+    D -->|На локальной машине| E["Локальный Gradle + удалённый браузер<br/>./gradlew test -Denv=remote -DremoteUrl=..."]
+    E --> E1["Gradle локально<br/>браузер в Selenoid"]
+
+    D -->|В CI| F["Удалённый запуск<br/>Jenkins job ikrylov_item"]
+    F --> F1["Gradle в Jenkins<br/>браузер в Selenoid"]
+```
 
 ## Запуск
 
@@ -49,7 +84,7 @@ chmod +x gradlew
 ./gradlew test -PincludeTags=habitica -PexcludeTags=challenge
 ```
 
-Запуск через Selenoid:
+Запуск через Selenoid (локальный Gradle + удалённый браузер):
 
 ```bash
 ./gradlew test \
@@ -58,21 +93,29 @@ chmod +x gradlew
   -Dbrowser.language=ru-RU
 ```
 
-Allure-отчёт:
+## [Jenkins](https://jenkins.autotests.cloud/view/java_students/job/ikrylov_item/)
 
-```bash
-./gradlew allureReport
-./gradlew allureServe
-```
+Последняя сборка: [ikrylov_item #87](https://jenkins.autotests.cloud/view/java_students/job/ikrylov_item/87/)
 
-## Jenkins
+Allure-отчёт публикуется из Jenkins после каждой сборки — [пример отчёта](#allure-report) (build #87, блок **Executors → Jenkins**).
 
-[Jenkins — ikrylov_item](https://jenkins.autotests.cloud/view/java_students/job/ikrylov_item/)
-
-Параметры запуска:
+Параметры запуска в Jenkins:
 
 ```
 -Denv=REMOTE
 -DremoteUrl=https://user1:1234@ru.selenoid.autotests.cloud/wd/hub
 -Dbrowser.language=ru-RU
+```
+
+## [Allure Report](https://jenkins.autotests.cloud/view/java_students/job/ikrylov_item/87/allure/)
+
+Пример отчёта после прогона в Jenkins (build #87, 13 тестов, 92.3% success):
+
+![Allure Report — ikrylov_item #87](docs/screenshots/allure-report.png)
+
+Локальный Allure-отчёт:
+
+```bash
+./gradlew allureReport
+./gradlew allureServe
 ```
