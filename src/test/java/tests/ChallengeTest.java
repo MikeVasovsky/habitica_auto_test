@@ -5,13 +5,14 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import pages.ChallengePage;
 
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static data.CreateChallengeData.OFFICIAL_CHL;
+
 @Tag(TestTags.HABITICA)
 @Tag(TestTags.CHALLENGE)
 public class ChallengeTest extends BaseTest {
-
 
     //ТЕСТ НЕСТАБИЛЕН ИЗЗА НОВЫХ ПРОФИЛЕЙ, ИМ НЕ ХВАТАЕТ ПРАВ НА СОЗДАНИЕ ИСПЫТАНИЙ
     @Test
@@ -20,16 +21,21 @@ public class ChallengeTest extends BaseTest {
     void searchNewChallenge() {
         CreateChallengeModel challenge = actions.createChallengeData();
         authSteps.registrationAndLogin();
-        actions.getMainPage()
+
+        ChallengePage challengePage = actions.getMainPage()
                 .goToFindChallenge()
-                .createChallenge()
-                .setChallenge(challenge)
-                .setResume(challenge)
-                .setDeskription(challenge)
-                .selectGroup(challenge)
-                .selectCategory(challenge)
-                .inputNumber(challenge)
-                .saveChallenge();
+                .clickCreateChallengeBtn()
+                .setChallengeName(challenge.getName())
+                .setShortName(challenge.getShortName())
+                .setResume(challenge.getResume())
+                .setDescription(challenge.getDesk())
+                .selectGroup(challenge.getGroup())
+                .setGift(challenge.getGift());
+
+        challengePage.openCategorySelector();
+        challenge.getCategory().forEach(challengePage::selectCategoryItem);
+        challengePage.closeCategorySelector()
+                .clickSaveChallengeBtn();
     }
 
     @Test
@@ -38,11 +44,12 @@ public class ChallengeTest extends BaseTest {
         authSteps.registrationAndLogin();
         actions.getMainPage()
                 .goToFindChallenge()
-                .searchChallenge(OFFICIAL_CHL)
+                .clickFindChallenges()
+                .clickHabiticaOfficialFilter()
+                .setSearchQuery(OFFICIAL_CHL)
                 .openChallenge(OFFICIAL_CHL)
-                .searchMyChallenge();
+                .clickMyChallenges();
         step("Проверить наличие  добавленного испытания во вкладке 'Мои испытания'", () ->
                 actions.getChallengePage().checkVisibleChallenge(OFFICIAL_CHL));
     }
-
 }

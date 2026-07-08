@@ -45,7 +45,8 @@ public class MainTests extends BaseTest {
         authSteps.registrationAndLogin();
         actions.getMainPage()
                 .goToCreateHabit()
-                .addTittleAbdNote(tittle, note)
+                .inputTitle(tittle)
+                .inputNote(note)
                 .addDifficult(difficult)
                 .addTag(tag)
                 .addCount(offCount)

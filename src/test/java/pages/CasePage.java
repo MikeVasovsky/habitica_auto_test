@@ -2,10 +2,8 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import model.CreateCaseModel;
 
 import java.util.List;
-import java.util.Random;
 
 import static com.codeborne.selenide.Condition.checked;
 import static com.codeborne.selenide.Condition.visible;
@@ -24,40 +22,24 @@ public class CasePage {
     private SelenideElement repeatLabel = $x("//label[contains(text(),'Повторения')]");
     private SelenideElement caseList = $("[class='tasks-column col-lg-3 col-md-6 daily']");
 
-    @Step("Создать ежедневное дело")
-    public CasePage createCase(CreateCaseModel model) {
-        inputTittle(model.getTittle());
-        inputNote(model.getNote());
-        inputPoint(model.getPoint());
-        pickDifficult(model.getDifficult());
-        inputDate(model.getYear(), model.getMonth(), model.getDay());
-        pickRepeatPeriod(model.getRepeat());
-        addRepeatSize(model.getRepeatDay());
-        addTag(model.getTag());
-        if (createCaseTab.$(".toggle-group").exists()) {
-            chooseDay(model.getDayWeek());
-        }
-        addCaseBtn.click();
+    @Step("Ввести заголовок дела")
+    public CasePage inputTittle(String tittle) {
+        createCaseTab.$("[placeholder='Добавить название']")
+                .setValue(tittle);
         return this;
     }
 
-
-    @Step("Ввести заголовок дела")
-    public void inputTittle(String tittle) {
-        createCaseTab.$("[placeholder='Добавить название']")
-                .setValue(tittle);
-    }
-
     @Step("Ввести заметку")
-    public void inputNote(String note) {
+    public CasePage inputNote(String note) {
         createCaseTab.$("[placeholder='Добавить заметку']")
                 .setValue(note);
+        return this;
     }
 
     @Step("Ввести список пунктов")
-    public void inputPoint(List<String> list) {
+    public CasePage inputPoint(List<String> list) {
         if (list == null || list.isEmpty()) {
-            return;
+            return this;
         }
         list.forEach(x -> {
             createCaseTab.$("[placeholder='Новый пункт списка']")
@@ -70,55 +52,94 @@ public class CasePage {
                     .last()
                     .shouldBe(checked);
         });
+        return this;
     }
 
     @Step("Выбрать сложность")
-    public void pickDifficult(List<String> diff) {
-        Random r = new Random();
+    public CasePage pickDifficult(String difficult) {
         createCaseTab.$("[class='difficulty-select']").click();
-        dropdownMenu.find(byText(diff.get(r.nextInt(diff.size())))).click();
+        dropdownMenu.find(byText(difficult)).click();
+        return this;
     }
 
-    @Step("Выбрать дату")
-    public void inputDate(String year, String month, String day) {
+    @Step("Открыть календарь")
+    public CasePage openDatePicker() {
         dateMenu.$("[class='vdp-datepicker__calendar-button input-group-icon input-group-prepend']")
                 .click();
-        dateMenu.$("[class='day__month_btn up']").click();
-        dateMenu.$("[class='month__year_btn up']").click();
-        yearMenu.find(byText(year)).click();
-        monthMenu.find(byText(month)).click();
-        dayMenu.find(byText(day)).click();
+        return this;
     }
 
-    @Step("Выбрать повторение")
-    public void pickRepeatPeriod(List<String> repeat) {
-        Random r = new Random();
-        createCaseTab.$("[class='array-select']")
-                .click();
-        dropdownMenu.find(byText(repeat.get(r.nextInt(repeat.size()))))
-                .click();
+    @Step("Открыть выбор месяца")
+    public CasePage openMonthPicker() {
+        dateMenu.$("[class='day__month_btn up']").click();
+        return this;
+    }
+
+    @Step("Открыть выбор года")
+    public CasePage openYearPicker() {
+        dateMenu.$("[class='month__year_btn up']").click();
+        return this;
+    }
+
+    @Step("Выбрать год")
+    public CasePage selectYear(String year) {
+        yearMenu.find(byText(year)).click();
+        return this;
+    }
+
+    @Step("Выбрать месяц")
+    public CasePage selectMonth(String month) {
+        monthMenu.find(byText(month)).click();
+        return this;
+    }
+
+    @Step("Выбрать день")
+    public CasePage selectDay(String day) {
+        dayMenu.find(byText(day)).click();
+        return this;
+    }
+
+    @Step("Открыть выбор периода повторения")
+    public CasePage openRepeatPeriodSelect() {
+        createCaseTab.$("[class='array-select']").click();
+        return this;
+    }
+
+    @Step("Выбрать период повторения")
+    public CasePage pickRepeatPeriod(String repeat) {
+        dropdownMenu.find(byText(repeat)).click();
         repeatLabel.click();
+        return this;
     }
 
     @Step("Выбрать частоту повторений")
-    public void addRepeatSize(String s) {
+    public CasePage addRepeatSize(String s) {
         createCaseTab.$("#task-modal___BV_modal_content_ [class='input-group-outer'] input")
                 .setValue(s);
+        return this;
     }
 
     @Step("Добавить тэг")
-    public void addTag(String t) {
+    public CasePage addTag(String t) {
         createCaseTab.$("[class='multi-list d-flex flex-wrap']")
                 .click();
         createCaseTab.$("[placeholder='Введите тег']").setValue(t)
                 .pressEnter();
+        return this;
     }
 
     @Step("Выбрать день, когда не надо повторять дело")
-    public void chooseDay(String d) {
+    public CasePage chooseDay(String d) {
         createCaseTab.$$(".toggle-group .toggle-checkbox")
                 .get(Integer.parseInt(d))
                 .click();
+        return this;
+    }
+
+    @Step("Сохранить ежедневное дело")
+    public CasePage clickCreateCaseBtn() {
+        addCaseBtn.click();
+        return this;
     }
 
     @Step("Проверить наличие созданного ежедневного дела")
@@ -126,5 +147,7 @@ public class CasePage {
         caseList.find(byText(name)).shouldBe(visible);
     }
 
-
+    public boolean hasDayWeekSelector() {
+        return createCaseTab.$(".toggle-group").exists();
+    }
 }

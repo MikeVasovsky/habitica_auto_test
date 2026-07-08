@@ -107,10 +107,14 @@ public class MainPage {
         return this;
     }
 
-    @Step("Ввести название и описание привычки")
-    public MainPage addTittleAbdNote(String tittle,
-                                     String note){
+    @Step("Ввести название привычки")
+    public MainPage inputTitle(String tittle) {
         addTittle.sendKeys(tittle);
+        return this;
+    }
+
+    @Step("Ввести описание привычки")
+    public MainPage inputNote(String note) {
         addNote.sendKeys(note);
         return this;
     }
