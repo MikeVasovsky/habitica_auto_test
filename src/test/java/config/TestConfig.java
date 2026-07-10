@@ -38,4 +38,8 @@ public interface TestConfig extends Config {
     @DefaultValue("ru-RU")
     String getBrowserLanguage();
 
+    @Key("browser.headless")
+    @DefaultValue("false")
+    boolean isHeadless();
+
 }

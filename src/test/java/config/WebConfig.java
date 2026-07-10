@@ -22,13 +22,14 @@ public class WebConfig {
         Configuration.browserVersion = testConfig.getBrowserVersion();
         Configuration.browserSize = testConfig.getBrowserSize();
         Configuration.pageLoadStrategy = testConfig.getLoadStrategy();
+        Configuration.headless = testConfig.isHeadless();
         if (testConfig.getEnv()==Remote.remote) {
             remote = testConfig.getRemoteUrl();
         }
         Configuration.browserCapabilities =
                 switch (testConfig.getBrowser()) {
                     case CHROME -> chromeOptionsWithLanguage();
-                    case FIREFOX -> new FirefoxOptions();
+                    case FIREFOX -> firefoxOptionsWithLanguage();
                 };
         System.setProperty("jdk.tls.maxCertificateChainLength", "50");
     }
@@ -37,9 +38,20 @@ public class WebConfig {
         ChromeOptions options = new ChromeOptions();
         String language = testConfig.getBrowserLanguage();
         options.addArguments("--lang=" + language.split("-")[0]);
+        if (testConfig.isHeadless()) {
+            options.addArguments("--headless=new");
+        }
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("intl.accept_languages", language);
         options.setExperimentalOption("prefs", prefs);
+        return options;
+    }
+
+    private FirefoxOptions firefoxOptionsWithLanguage() {
+        FirefoxOptions options = new FirefoxOptions();
+        if (testConfig.isHeadless()) {
+            options.addArguments("-headless");
+        }
         return options;
     }
 }
