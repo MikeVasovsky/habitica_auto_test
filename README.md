@@ -84,12 +84,14 @@ chmod +x gradlew
 ./gradlew test -PincludeTags=habitica -PexcludeTags=challenge
 ```
 
-Запуск через Selenoid (локальный Gradle + удалённый браузер):
+Запуск через Selenoid (локальный Gradle + удалённый браузер).
+
+Подставьте свой логин и пароль от Selenoid вместо `<selenoid_login>` и `<selenoid_password>`:
 
 ```bash
 ./gradlew test \
   -Denv=remote \
-  -DremoteUrl=https://user1:1234@ru.selenoid.autotests.cloud/wd/hub \
+  -DremoteUrl=https://<selenoid_login>:<selenoid_password>@ru.selenoid.autotests.cloud/wd/hub \
   -Dbrowser.language=ru-RU
 ```
 
@@ -99,11 +101,11 @@ chmod +x gradlew
 
 Allure-отчёт публикуется из Jenkins после каждой сборки — [пример отчёта](#allure-report) (build #87, блок **Executors → Jenkins**).
 
-Параметры запуска в Jenkins:
+Параметры запуска в Jenkins (логин и пароль Selenoid указываются в credentials, не в README):
 
 ```
 -Denv=REMOTE
--DremoteUrl=https://user1:1234@ru.selenoid.autotests.cloud/wd/hub
+-DremoteUrl=https://<selenoid_login>:<selenoid_password>@ru.selenoid.autotests.cloud/wd/hub
 -Dbrowser.language=ru-RU
 ```
 
