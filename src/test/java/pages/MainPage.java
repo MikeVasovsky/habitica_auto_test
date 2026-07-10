@@ -30,10 +30,9 @@ public class MainPage {
     private SelenideElement countFld = $("[class='array-select']");
     private SelenideElement dropdownMenu = $("[class='dropdown-menu show']");
     private SelenideElement taskList = $("[class='tasks-column col-lg-3 col-md-6 habit']");
-    private SelenideElement caseList = $("[class=['tasks-column col-lg-3 col-md-6 daily']");
-    private SelenideElement diffTittle=$x("//label[contains(text(), 'Сложность')]");
-    private SelenideElement createBtn=$x("//button[contains(text(), 'Создать')]");
-
+    private SelenideElement diffTittle = $x("//label[contains(text(), 'Сложность')]");
+    private SelenideElement createBtn = $x("//button[contains(text(), 'Создать')]");
+    private SelenideElement difficultyToggle = modal.$("[class='difficulty-select'] button.dropdown-toggle");
 
     @Step("Проверить отображение имени на главной страниц")
     public void checkNameOfMember(String name) {
@@ -49,10 +48,10 @@ public class MainPage {
 
     @Step("Пропустить экраны приветствия и настройки персонажа")
     public MainPage skipGreetings() {
-        if (nextFooter.is(visible, Duration.ofSeconds(10))){
+        if (nextFooter.is(visible, Duration.ofSeconds(10))) {
             nextFooter.scrollIntoView(true).click();
         }
-        if (closeFooter.is(visible, Duration.ofSeconds(10))){
+        if (closeFooter.is(visible, Duration.ofSeconds(10))) {
             closeFooter.scrollIntoView(true).click();
         }
         if (letsGetStartBtn.is(visible, Duration.ofSeconds(10))) {
@@ -61,30 +60,33 @@ public class MainPage {
         return this;
     }
 
-    @Step("Перейти с созданию привычки")
-    public MainPage goToCreateHabit() {
+    @Step("Нажать кнопку добавления задачи")
+    public MainPage clickAddTaskBtn() {
         addTaskBtn.click();
+        return this;
+    }
+
+    @Step("Выбрать тип задачи «привычка»")
+    public MainPage clickAddHabitBtn() {
         addHabitBtn.click();
         return this;
     }
 
-    @Step("Перейти к созданию ежедневного дела")
-    public CasePage goToCreateCase(){
-        addTaskBtn.click();
+    @Step("Выбрать тип задачи «ежедневное дело»")
+    public CasePage clickAddDailyCaseBtn() {
         addCaseBtn.click();
         return new CasePage();
     }
 
     @Step("Создать привычку")
-    public MainPage createHabit(){
+    public MainPage clickCreateHabitBtn() {
         createBtn.click();
         return this;
     }
 
     @Step("Выбрать сложность")
-    public MainPage addDifficult(String diff){
+    public MainPage addDifficult(String diff) {
         diffTittle.click();
-        SelenideElement difficultyToggle = modal.$("[class='difficulty-select'] button.dropdown-toggle");
         if (!difficultyToggle.$(".label").is(text(diff))) {
             difficultyToggle.scrollIntoView(true).click(usingJavaScript());
             dropdownMenu.shouldBe(visible, Duration.ofSeconds(10)).find(byText(diff)).click();
@@ -93,7 +95,7 @@ public class MainPage {
     }
 
     @Step("Выбрать тэг")
-    public MainPage addTag(String tag){
+    public MainPage addTag(String tag) {
         tagFld.click();
         dropdownMenu.find(byText(tag)).click();
         diffTittle.click();
@@ -101,8 +103,8 @@ public class MainPage {
     }
 
     @Step("Выбрать счетчик")
-    public MainPage addCount(String count){
-        modal.$("[class='array-select']").click();
+    public MainPage addCount(String count) {
+        countFld.click();
         dropdownMenu.find(byText(count)).click();
         return this;
     }
@@ -120,24 +122,21 @@ public class MainPage {
     }
 
     @Step("Открыть созданную привычку")
-    public MainPage openCreateHabit(String name){
+    public MainPage openCreateHabit(String name) {
         taskList.find(byText(name)).click();
         return this;
     }
 
     @Step("Проверить созданную привычку")
-    public void checkCreateHabit(
-                                 String diff,
-                                 String tag,
-                                 String count){
+    public void checkCreateHabit(String diff, String tag, String count) {
         diffFld.shouldHave(text(diff));
         tagFld.shouldHave(text(tag));
         countFld.shouldHave(text(count));
     }
 
     @Step("Перейти на страницу поиска испытаний")
-    public ChallengePage goToFindChallenge(){
-        mainTittle.goToSearchChallenge();
+    public ChallengePage goToFindChallenge() {
+        mainTittle.clickChallengesMenu().clickFindChallengesLink();
         return new ChallengePage();
     }
 }

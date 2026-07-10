@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
@@ -13,7 +14,19 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CasePage {
     private SelenideElement createCaseTab = $("#task-modal___BV_modal_content_");
+    private SelenideElement titleFld = $("[placeholder='Добавить название']");
+    private SelenideElement noteFld = $("[placeholder='Добавить заметку']");
+    private SelenideElement checklistItemFld = $("[placeholder='Новый пункт списка']");
+    private SelenideElement difficultySelect = $("[class='difficulty-select']");
+    private SelenideElement repeatSelect = $("[class='array-select']");
+    private SelenideElement repeatSizeFld = $("[class='input-group-outer'] input");
+    private SelenideElement tagMultiList = $("[class='multi-list d-flex flex-wrap']");
+    private SelenideElement tagInputFld = $("[placeholder='Введите тег']");
+    private ElementsCollection dayWeekCheckboxes = createCaseTab.$$(".toggle-group .toggle-checkbox");
     private SelenideElement dateMenu = $("[class='vdp-datepicker']");
+    private SelenideElement datePickerBtn = dateMenu.$("[class='vdp-datepicker__calendar-button input-group-icon input-group-prepend']");
+    private SelenideElement monthPickerBtn = dateMenu.$("[class='day__month_btn up']");
+    private SelenideElement yearPickerBtn = dateMenu.$("[class='month__year_btn up']");
     private SelenideElement yearMenu = $("[class='calendar-padding vdp-datepicker__calendar picker_year']");
     private SelenideElement monthMenu = $("[class='calendar-padding vdp-datepicker__calendar picker_month']");
     private SelenideElement dayMenu = $("[class='calendar-padding vdp-datepicker__calendar picker_day']");
@@ -21,18 +34,17 @@ public class CasePage {
     private SelenideElement addCaseBtn = $("[class='btn btn-primary btn-footer d-flex align-items-center justify-content-center']");
     private SelenideElement repeatLabel = $x("//label[contains(text(),'Повторения')]");
     private SelenideElement caseList = $("[class='tasks-column col-lg-3 col-md-6 daily']");
+    private SelenideElement dayWeekSelector = createCaseTab.$(".toggle-group");
 
     @Step("Ввести заголовок дела")
     public CasePage inputTittle(String tittle) {
-        createCaseTab.$("[placeholder='Добавить название']")
-                .setValue(tittle);
+        titleFld.setValue(tittle);
         return this;
     }
 
     @Step("Ввести заметку")
     public CasePage inputNote(String note) {
-        createCaseTab.$("[placeholder='Добавить заметку']")
-                .setValue(note);
+        noteFld.setValue(note);
         return this;
     }
 
@@ -42,9 +54,7 @@ public class CasePage {
             return this;
         }
         list.forEach(x -> {
-            createCaseTab.$("[placeholder='Новый пункт списка']")
-                    .setValue(x)
-                    .pressEnter();
+            checklistItemFld.setValue(x).pressEnter();
             createCaseTab.$$(".checklist-group:not(.new-checklist) .custom-control-label")
                     .last()
                     .click();
@@ -57,27 +67,26 @@ public class CasePage {
 
     @Step("Выбрать сложность")
     public CasePage pickDifficult(String difficult) {
-        createCaseTab.$("[class='difficulty-select']").click();
+        difficultySelect.click();
         dropdownMenu.find(byText(difficult)).click();
         return this;
     }
 
     @Step("Открыть календарь")
     public CasePage openDatePicker() {
-        dateMenu.$("[class='vdp-datepicker__calendar-button input-group-icon input-group-prepend']")
-                .click();
+        datePickerBtn.click();
         return this;
     }
 
     @Step("Открыть выбор месяца")
     public CasePage openMonthPicker() {
-        dateMenu.$("[class='day__month_btn up']").click();
+        monthPickerBtn.click();
         return this;
     }
 
     @Step("Открыть выбор года")
     public CasePage openYearPicker() {
-        dateMenu.$("[class='month__year_btn up']").click();
+        yearPickerBtn.click();
         return this;
     }
 
@@ -101,7 +110,7 @@ public class CasePage {
 
     @Step("Открыть выбор периода повторения")
     public CasePage openRepeatPeriodSelect() {
-        createCaseTab.$("[class='array-select']").click();
+        repeatSelect.click();
         return this;
     }
 
@@ -114,25 +123,20 @@ public class CasePage {
 
     @Step("Выбрать частоту повторений")
     public CasePage addRepeatSize(String s) {
-        createCaseTab.$("#task-modal___BV_modal_content_ [class='input-group-outer'] input")
-                .setValue(s);
+        repeatSizeFld.setValue(s);
         return this;
     }
 
     @Step("Добавить тэг")
     public CasePage addTag(String t) {
-        createCaseTab.$("[class='multi-list d-flex flex-wrap']")
-                .click();
-        createCaseTab.$("[placeholder='Введите тег']").setValue(t)
-                .pressEnter();
+        tagMultiList.click();
+        tagInputFld.setValue(t).pressEnter();
         return this;
     }
 
     @Step("Выбрать день, когда не надо повторять дело")
     public CasePage chooseDay(String d) {
-        createCaseTab.$$(".toggle-group .toggle-checkbox")
-                .get(Integer.parseInt(d))
-                .click();
+        dayWeekCheckboxes.get(Integer.parseInt(d)).click();
         return this;
     }
 
@@ -148,6 +152,6 @@ public class CasePage {
     }
 
     public boolean hasDayWeekSelector() {
-        return createCaseTab.$(".toggle-group").exists();
+        return dayWeekSelector.exists();
     }
 }

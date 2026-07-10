@@ -27,7 +27,8 @@ public class AuthSteps {
         regPage.confirmCoockie()
                 .inputLogopass(t.email, t.password)
                 .confirmLogopass()
-                .confirmUsername()
+                .clickPrivacyCheckbox()
+                .clickSubmitUsernameBtn()
                 .skipGreetings();
     }
 
@@ -40,7 +41,9 @@ public class AuthSteps {
     @Step("Авторизация предустановленного пользователя")
     public void preSaveUserLogin() {
         regPage.goToLoginPage()
-                .enterLogopass(EMAIL, PWD);
+                .setEmail(EMAIL)
+                .setPassword(PWD)
+                .clickLoginBtn();
     }
 
     @Step("Перейти на страницу логина")
@@ -53,8 +56,10 @@ public class AuthSteps {
         return regPage.confirmCoockie()
                 .inputLogopass(t.email, t.password)
                 .confirmLogopass()
+                .clearUsername()
                 .inputName(username)
-                .confirmUsername()
+                .clickPrivacyCheckbox()
+                .clickSubmitUsernameBtn()
                 .skipGreetings();
     }
 

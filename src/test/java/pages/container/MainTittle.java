@@ -11,9 +11,15 @@ public class MainTittle {
     private SelenideElement mainTittle = $("#menu_collapse");
     private SelenideElement openSearchChallenge = $x("//*[@id=\"app\"]/div[3]/div[3]/div/nav/a[2]");
 
-    @Step("открывть раздел 'Найти испытания'")
-    public void goToSearchChallenge(){
+    @Step("Открыть раздел «Испытания»")
+    public MainTittle clickChallengesMenu() {
         mainTittle.find(byText("Испытания")).click();
+        return this;
+    }
+
+    @Step("Перейти к поиску испытаний")
+    public MainTittle clickFindChallengesLink() {
         openSearchChallenge.click();
+        return this;
     }
 }

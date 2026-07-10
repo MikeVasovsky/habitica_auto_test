@@ -13,6 +13,15 @@ public class ChallengePage {
     private SelenideElement createChallengeBtn = $x("//span[contains(text(),'Создать испытание')]");
     private SelenideElement challengeData = $(".sticky");
     private SelenideElement createBody = $("#challenge-modal___BV_modal_body_");
+    private SelenideElement challengeNameFld = createBody.$("[placeholder='Как назовешь свое испытание?']");
+    private SelenideElement shortNameFld = createBody.$("[placeholder='Какой короткий тег использовать для вашего испытания?']");
+    private SelenideElement resumeFld = createBody.$(".summary-textarea");
+    private SelenideElement descriptionFld = createBody.$(".description-textarea");
+    private SelenideElement groupSelect = createBody.$("select");
+    private SelenideElement categorySelect = createBody.$(".category-select");
+    private SelenideElement categoryBox = createBody.$(".category-box");
+    private SelenideElement giftFld = createBody.$("[type='number']");
+    private SelenideElement saveChallengeBtn = createBody.$(".submit-button-wrapper .btn-primary");
     private SelenideElement challengeFindData = $("[class='col-12 col-md-10 standard-page']");
 
     @Step("Нажать кнопку создания испытания")
@@ -23,61 +32,61 @@ public class ChallengePage {
 
     @Step("Ввести название испытания")
     public ChallengePage setChallengeName(String name) {
-        createBody.$("[placeholder='Как назовешь свое испытание?']").setValue(name);
+        challengeNameFld.setValue(name);
         return this;
     }
 
     @Step("Ввести короткий тег испытания")
     public ChallengePage setShortName(String shortName) {
-        createBody.$("[placeholder='Какой короткий тег использовать для вашего испытания?']").setValue(shortName);
+        shortNameFld.setValue(shortName);
         return this;
     }
 
     @Step("Ввести резюме испытания")
     public ChallengePage setResume(String resume) {
-        createBody.$(".summary-textarea").setValue(resume);
+        resumeFld.setValue(resume);
         return this;
     }
 
     @Step("Ввести описание испытания")
     public ChallengePage setDescription(String description) {
-        createBody.$(".description-textarea").setValue(description);
+        descriptionFld.setValue(description);
         return this;
     }
 
     @Step("Выбрать группу")
     public ChallengePage selectGroup(String group) {
-        createBody.$("select").selectOptionContainingText(group);
+        groupSelect.selectOptionContainingText(group);
         return this;
     }
 
     @Step("Открыть выбор категории")
     public ChallengePage openCategorySelector() {
-        createBody.$(".category-select").click();
+        categorySelect.click();
         return this;
     }
 
     @Step("Выбрать категорию")
     public ChallengePage selectCategoryItem(String category) {
-        createBody.$(".category-box").find(byText(category)).click();
+        categoryBox.find(byText(category)).click();
         return this;
     }
 
     @Step("Закрыть выбор категории")
     public ChallengePage closeCategorySelector() {
-        createBody.$(".category-box").find(byText("Закрыть")).click();
+        categoryBox.find(byText("Закрыть")).click();
         return this;
     }
 
     @Step("Ввести приз")
     public ChallengePage setGift(String gift) {
-        createBody.$("[type='number']").setValue(gift);
+        giftFld.setValue(gift);
         return this;
     }
 
     @Step("Сохранить испытание")
     public ChallengePage clickSaveChallengeBtn() {
-        createBody.$(".submit-button-wrapper .btn-primary").scrollTo().click();
+        saveChallengeBtn.scrollTo().click();
         return this;
     }
 

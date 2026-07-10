@@ -28,8 +28,10 @@ public class AppSteps {
 
     @Step("Ввод нового имени пользователя")
     public void newUsername(String name) {
-        usernamePage.inputName(name);
-        usernamePage.confirmUsername();
+        usernamePage.clearUsername()
+                .inputName(name)
+                .clickPrivacyCheckbox()
+                .clickSubmitUsernameBtn();
     }
 
     @Step("Создание данных испытания")

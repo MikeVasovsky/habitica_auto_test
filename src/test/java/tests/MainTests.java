@@ -44,13 +44,14 @@ public class MainTests extends BaseTest {
     void addHabitTest(String tittle, String note, String difficult, String tag, String offCount) {
         authSteps.registrationAndLogin();
         actions.getMainPage()
-                .goToCreateHabit()
+                .clickAddTaskBtn()
+                .clickAddHabitBtn()
                 .inputTitle(tittle)
                 .inputNote(note)
                 .addDifficult(difficult)
                 .addTag(tag)
                 .addCount(offCount)
-                .createHabit()
+                .clickCreateHabitBtn()
                 .openCreateHabit(tittle)
                 .checkCreateHabit(difficult, tag, offCount);
     }

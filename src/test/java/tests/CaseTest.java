@@ -22,7 +22,9 @@ public class CaseTest extends BaseTest {
 
         authSteps.registrationAndLogin();
 
-        CasePage casePage = actions.getMainPage().goToCreateCase();
+        CasePage casePage = actions.getMainPage()
+                .clickAddTaskBtn()
+                .clickAddDailyCaseBtn();
         casePage.inputTittle(model.getTittle())
                 .inputNote(model.getNote())
                 .inputPoint(model.getPoint())

@@ -14,7 +14,9 @@ public class LoginTest extends BaseTest{
     @DisplayName("Проверка логина зарегистрированного пользователя")
     void correctLoginTest(){
         authSteps.openLoginPage()
-                .enterLogopass(EMAIL, PWD)
+                .setEmail(EMAIL)
+                .setPassword(PWD)
+                .clickLoginBtn()
                 .checkEmailOfMember(DOMAIN);
     }
 
@@ -22,7 +24,9 @@ public class LoginTest extends BaseTest{
     @DisplayName("Проверка логина по незарегистрированному логопассу")
     void wrongLogopassLoginTest(){
         authSteps.openLoginPage()
-                .enterNotRegisterLogopass(t.email,t.password);
+                .setEmail(t.email)
+                .setPassword(t.password)
+                .clickLoginBtn();
         loginPage.checkIncorrectLogopassMessage();
     }
 
