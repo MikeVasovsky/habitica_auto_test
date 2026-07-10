@@ -22,7 +22,6 @@ public class WebConfig {
         Configuration.browserVersion = testConfig.getBrowserVersion();
         Configuration.browserSize = testConfig.getBrowserSize();
         Configuration.pageLoadStrategy = testConfig.getLoadStrategy();
-        Configuration.headless = testConfig.isHeadless();
         if (testConfig.getEnv()==Remote.remote) {
             remote = testConfig.getRemoteUrl();
         }
