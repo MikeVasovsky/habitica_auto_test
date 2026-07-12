@@ -23,7 +23,7 @@ public interface TestConfig extends Config {
     String getBrowserVersion();
 
     @Key("browser.size")
-    @DefaultValue("1980x1080")
+    @DefaultValue("1920x1080")
     String getBrowserSize();
 
     @Key("pageLoadStrategy")
