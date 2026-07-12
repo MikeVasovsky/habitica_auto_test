@@ -34,7 +34,7 @@ public class LoginTest extends BaseTest{
     @DisplayName("Проверка логина с некорректным паролем")
     void wrongPasswordLoginTest(){
         authSteps.openLoginPage()
-                .enterWrongPwd(t.wrongPassword);
+                .setPassword(t.wrongPassword);
         loginPage.checkILogopassMessageIfNotEnterLogin();
     }
 }

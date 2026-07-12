@@ -25,7 +25,9 @@ public class AuthSteps {
     @Step("Создать нового пользователя и авторозиция")
     public void registrationAndLogin() {
         regPage.confirmCoockie()
-                .inputLogopass(t.email, t.password)
+                .setEmail(t.email)
+                .setPassword(t.password)
+                .setConfirmPassword(t.password)
                 .confirmLogopass()
                 .clickPrivacyCheckbox()
                 .clickSubmitUsernameBtn()
@@ -34,16 +36,10 @@ public class AuthSteps {
 
     @Step("Регистрация нового пользователя")
     public void registrationUser() {
-        regPage.inputLogopass(t.email, t.password)
+        regPage.setEmail(t.email)
+                .setPassword(t.password)
+                .setConfirmPassword(t.password)
                 .confirmLogopass();
-    }
-
-    @Step("Авторизация предустановленного пользователя")
-    public void preSaveUserLogin() {
-        regPage.goToLoginPage()
-                .setEmail(EMAIL)
-                .setPassword(PWD)
-                .clickLoginBtn();
     }
 
     @Step("Перейти на страницу логина")
@@ -54,7 +50,9 @@ public class AuthSteps {
     @Step("Регистрация нового пользователя с указанным именем")
     public MainPage registrationWithUsername(String username) {
         return regPage.confirmCoockie()
-                .inputLogopass(t.email, t.password)
+                .setEmail(t.email)
+                .setPassword(t.password)
+                .setConfirmPassword(t.password)
                 .confirmLogopass()
                 .clearUsername()
                 .inputName(username)

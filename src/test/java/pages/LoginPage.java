@@ -39,11 +39,6 @@ public class LoginPage {
         wrongLogopassMessage.shouldBe(visible);
     }
 
-    @Step("Ввести некорректный пароль")
-    public LoginPage enterWrongPwd(String pwd) {
-        passwordFld.setValue(pwd);
-        return this;
-    }
 
     @Step("Проверить отображение сообщения об отсутствии логина или пароля")
     public void checkILogopassMessageIfNotEnterLogin() {

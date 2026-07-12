@@ -18,10 +18,20 @@ public class RegistrationPage {
     private SelenideElement goToLoginPage = $("[href='/login']");
 
 
-    @Step("Вводи почты и пароля")
-    public RegistrationPage inputLogopass(String email, String password) {
+    @Step("Ввести email")
+    public RegistrationPage setEmail(String email) {
         emailFld.shouldBe(visible).setValue(email);
+        return this;
+    }
+
+    @Step("Ввести пароль")
+    public RegistrationPage setPassword(String password) {
         passwordFlds.get(0).shouldBe(visible).setValue(password);
+        return this;
+    }
+
+    @Step("Подтвердить пароль")
+    public RegistrationPage setConfirmPassword(String password) {
         passwordFlds.get(1).shouldBe(visible).setValue(password);
         return this;
     }
